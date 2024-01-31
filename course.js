@@ -22,7 +22,7 @@ async function main (){
         // deleteMark(connection);
         // updateMark(connection);
         // count(connection);
-        // join(connection);
+        join(connection);
 
 
 
