@@ -19,8 +19,9 @@ async function main (){
         // addColumn(connection);
         // current(connection);
         // groupBy(connection);
-        between(connection);
-        avgGroup(connection);
+        // between(connection);
+        // avgGroup(connection);
+        opcional1(connection);
 
     }
 
@@ -87,5 +88,23 @@ async function avgGroup(connection){
     let [result2] = await connection.query(subject2)
     console.log(result);
     console.log(result2);
+}
+
+async function opcional1(connection){
+    let opcional = ` SELECT students.first_name, COUNT(subject_id) FROM marks 
+    JOIN students ON marks.student_id = students.students_id
+    JOIN subjects ON marks.subject_id = subjects.subjects_id
+    WHERE subjects.title = 'Psicometria' OR subjects.title = 'Percepcion y Atencion'
+    GROUP BY students.first_name;`
+
+    let [result] = await connection.query(opcional)
+    console.log(result);
+}
+
+async function opcional2(connection){
+    let opcional = ``
+
+    let [result] = await connection.query(opciona2)
+    console.log(result);
 }
 main()
