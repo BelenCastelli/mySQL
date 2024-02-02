@@ -20,8 +20,8 @@ async function main (){
         // current(connection);
         // groupBy(connection);
         // between(connection);
-        // avgGroup(connection);
-        opcional1(connection);
+        avgGroup(connection);
+        // opcional1(connection);
 
     }
 
