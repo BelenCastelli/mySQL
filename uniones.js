@@ -14,7 +14,9 @@ async function main (){
         console.log('Conexión correcta');
         // join(connection);
         // join2(connection);
-        join3(connection);
+        // join3(connection);
+        opcional1(connection);
+        opcional2(connection);
     }
 
     catch(error) {
@@ -75,4 +77,28 @@ async function join3(connection){
     console.log(result);
 }
 
+async function opcional1(connection){
+    let join = `SELECT AVG(marks.mark) AS media_asignatura, teachers.first_name, teachers.last_name, subjects.title
+    FROM dia1.teachers
+    JOIN subject_teacher ON (teachers.teachers_id = subject_teacher.subject_id)
+    JOIN subjects ON (subject_teacher.subject_id = subjects.subject_id)
+    JOIN marks ON (subjects.subject_id = marks.subject_id)
+    GROUP BY subjects.title, teachers.first_name, teachers.last_name
+    ORDER BY AVG(marks.mark) DESC`
+
+    let [result] = await connection.query(join)
+    console.log(result);
+}
+
+async function opcional2(connection){
+    let join = `SELECT students.first_name, students.last_name, COUNT(subjects.subject_id) AS num_subjects, 
+    AVG(marks.mark) AS nota_media,  MAX(marks.mark) AS nota_alta, MIN(marks.mark) AS nota_baja
+    FROM dia1.students
+    JOIN marks ON (students.students_id = marks.student_id)
+    JOIN subjects ON (marks.subject_id = subjects.subject_id)
+    GROUP BY students.first_name, students.last_name`
+
+    let [result] = await connection.query(join)
+    console.log(result);
+}
 main()
