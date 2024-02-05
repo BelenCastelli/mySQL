@@ -15,7 +15,8 @@ async function main (){
         // join(connection);
         // join2(connection);
         // join3(connection);
-        opcional1(connection);
+        // opcional1(connection);
+        // opcional1Grupos(connection)
         opcional2(connection);
     }
 
@@ -89,6 +90,22 @@ async function opcional1(connection){
     let [result] = await connection.query(join)
     console.log(result);
 }
+
+async function opcional1Grupos(connection){
+    let join = `SELECT AVG(marks.mark) AS media_asignatura, teachers.first_name, teachers.last_name, subjects.title, grupos.name
+    FROM dia1.teachers
+    JOIN subject_teacher ON (teachers.teachers_id = subject_teacher.subject_id)
+    JOIN subjects ON (subject_teacher.subject_id = subjects.subject_id)
+    JOIN marks ON (subjects.subject_id = marks.subject_id)
+    JOIN grupos ON (subject_teacher.group_id = grupos.group_id)
+    GROUP BY subjects.title, teachers.first_name, teachers.last_name, grupos.name
+    ORDER BY AVG(marks.mark) DESC`
+
+    let [result] = await connection.query(join)
+    console.log(result);
+}
+
+
 
 async function opcional2(connection){
     let join = `SELECT students.first_name, students.last_name, COUNT(subjects.subject_id) AS num_subjects, 
